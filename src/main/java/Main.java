@@ -1,6 +1,12 @@
+import java.io.IOException;
+
 public class Main {
   public static void main(String[] args) {
     Mangafox mf = new Mangafox();
-    mf.parse();
+    try {
+      mf.parse();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
