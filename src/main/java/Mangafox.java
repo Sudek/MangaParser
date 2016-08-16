@@ -12,7 +12,7 @@ public class Mangafox {
   private static final String ADDRESS = "http://mangafox.me/manga/";
   Logger logger = LoggerFactory.getLogger(Mangafox.class);
 
-  public void parse() throws IOException {
+  public ArrayList<String> parse() throws IOException {
 
     //Cache cache = new Cache(new File(args[0]), cacheByteCount);
     OkHttpClient client = new OkHttpClient.Builder()
@@ -30,16 +30,15 @@ public class Mangafox {
     String contentType = response.header("Content-Type");
     if (responseCode != 200 || contentType == null) {
       response.body().close();
-      return;
     }
 
     MediaType mediaType = MediaType.parse(contentType);
     if (mediaType == null || !mediaType.subtype().equalsIgnoreCase("html")) {
       response.body().close();
-      return;
     }
 
     Document mangafoxDoc = null;
+    ArrayList<String> mangafoxURL = new ArrayList<String>();
     try {
       mangafoxDoc = Jsoup.parse(response.body().string(), ADDRESS);
     } catch (IOException e) {
@@ -51,19 +50,14 @@ public class Mangafox {
           .select("li")
           .select("a[href]");
       for (Element link : mangafoxLinks) {
-        logger.info("Link - " + link.attr("href"));
-        logger.info("Name - " + link.text());
+        mangafoxURL.add(link.attr("href"));
       }
     }
+    return mangafoxURL;
   }
 
-  public void parseURL() {
-
+  public void parseURL(ArrayList<String> urlList) {
     Document mangaDoc = null;
-    ArrayList<String> urlList = new ArrayList<String>();
-    urlList.add("http://mangafox.me/manga/a_gentle_man/");
-    urlList.add("http://mangafox.me/manga/to_love_ru_darkness/");
-    urlList.add("http://mangafox.me/manga/to_aru_majutsu_no_kinsho_mokuroku/");
     for (String anUrlList : urlList) {
       try {
         mangaDoc = Jsoup.connect(anUrlList).get();
@@ -71,6 +65,11 @@ public class Mangafox {
         e.printStackTrace();
       }
       if (mangaDoc != null) {
+
+        Elements mangaName = mangaDoc
+            .select("div#chapters")
+            .select("h2")
+            .select("a");
 
         Elements mangaCover = mangaDoc.getElementsByClass("cover");
         Elements images = mangaCover.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
@@ -96,12 +95,13 @@ public class Mangafox {
         Element lastChapterName = mangaLlastChapterName.first();
 
         for (Element image : images) {
+          logger.info("Name - " + mangaName.text());
           logger.info("Cover URL - " + image.attr("src"));
           logger.info("Release date - " + releaseDate.text());
           logger.info("Status - " + status.text());
           logger.info("Last chapter update - " + lastChapterUpdate.text());
           logger.info("Last chapter name - " + lastChapterName.text());
-          logger.info("--------------------------------------------------------");
+          logger.info("--------------------------------------------------------------------------");
         }
       }
     }
