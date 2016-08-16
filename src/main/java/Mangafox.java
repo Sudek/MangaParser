@@ -57,7 +57,9 @@ public class Mangafox {
   }
 
   public void parseURL(ArrayList<String> urlList) {
+
     Document mangaDoc = null;
+
     for (String anUrlList : urlList) {
       try {
         mangaDoc = Jsoup.connect(anUrlList).get();
@@ -94,14 +96,16 @@ public class Mangafox {
             .getElementsByClass("tips");
         Element lastChapterName = mangaLlastChapterName.first();
 
-        for (Element image : images) {
-          logger.info("Name - " + mangaName.text());
-          logger.info("Cover URL - " + image.attr("src"));
-          logger.info("Release date - " + releaseDate.text());
-          logger.info("Status - " + status.text());
-          logger.info("Last chapter update - " + lastChapterUpdate.text());
-          logger.info("Last chapter name - " + lastChapterName.text());
-          logger.info("--------------------------------------------------------------------------");
+        if (mangaLastChapterDate.size() > 0 && mangaLlastChapterName.size() > 0) {
+          for (Element image : images) {
+            logger.info("Name - " + mangaName.text());
+            logger.info("Cover URL - " + image.attr("src"));
+            logger.info("Release date - " + releaseDate.text());
+            logger.info("Status - " + status.text());
+            logger.info("Last chapter update - " + lastChapterUpdate.text());
+            logger.info("Last chapter name - " + lastChapterName.text());
+            logger.info("-----------------------------------------------------------------------");
+          }
         }
       }
     }
