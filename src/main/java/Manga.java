@@ -4,16 +4,20 @@ public class Manga {
   private String uid;
   private String title;
   private String cover;
-  private Date latestChapter;
+  private int latestChapter;
   private Date lastTimeUpdate;
   private Date released;
   private boolean completed;
 
-  public Manga() {
-  }
-
-  public Manga(String title) {
+  public Manga(final String uid, final String title, final String cover, final int latestChapter,
+      final Date lastTimeUpdate, final Date released, final boolean completed) {
+    this.uid = uid;
     this.title = title;
+    this.cover = cover;
+    this.latestChapter = latestChapter;
+    this.lastTimeUpdate = lastTimeUpdate;
+    this.released = released;
+    this.completed = completed;
   }
 
   public String getUid() {
@@ -40,11 +44,11 @@ public class Manga {
     this.cover = cover;
   }
 
-  public Date getLatestChapter() {
+  public int getLatestChapter() {
     return latestChapter;
   }
 
-  public void setLatestChapter(final Date latestChapter) {
+  public void setLatestChapter(final int latestChapter) {
     this.latestChapter = latestChapter;
   }
 

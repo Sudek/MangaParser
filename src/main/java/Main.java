@@ -10,5 +10,6 @@ public class Main {
     //    mf.parseURL(mangafoxNameURL);
     FirebaseClient fc = new FirebaseClient();
     fc.connect();
+    fc.setManga();
   }
 }
