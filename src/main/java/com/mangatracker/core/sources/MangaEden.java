@@ -14,29 +14,10 @@ package com.mangatracker.core.sources;
 //import com.jparkie.aizoban.utils.wrappers.RequestWrapper;
 //import com.squareup.okhttp.Response;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-
-
 public class MangaEden {
     private static final String SOURCE_NAME = "Mangafox";
     public static final String BASE_URL = "www.mangaeden.com";
+    //trouble with update git page
 //
 //    private static final String INITIAL_UPDATE_URL = "http://www.mangaeden.com/ajax/news/1/0";
 //
