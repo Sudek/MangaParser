@@ -17,7 +17,6 @@ package com.mangatracker.core.sources;
 public class MangaEden {
     private static final String SOURCE_NAME = "Mangafox";
     public static final String BASE_URL = "www.mangaeden.com";
-    //trouble with update git page
 //
 //    private static final String INITIAL_UPDATE_URL = "http://www.mangaeden.com/ajax/news/1/0";
 //
