@@ -47,7 +47,7 @@ public class MangaManager implements ValueEventListener, SourceCallback {
         // init firebase app
         //set up key address
         InputStream is = MangaManager.class.getResourceAsStream
-            ("/key-firebase.json");
+            ("/keys/key-firebase.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setServiceAccount(is)
                  //set up db address
