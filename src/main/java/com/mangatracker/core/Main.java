@@ -21,6 +21,8 @@ public class Main {
     get("/odmin/dashboard", (request, response) -> new ModelAndView(buildMangaList(), "dashboard.mustache"),
         new MustacheTemplateEngine());
 
+//    mangaManager.getLatest("mangafox");
+
     post("/odmin/fetch/:source", ((request, response) -> {
       logger.debug("fetch " + request.queryParams("source"));
       mangaManager.getLatest(request.queryParams("source"));

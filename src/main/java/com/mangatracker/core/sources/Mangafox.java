@@ -119,7 +119,7 @@ public class Mangafox implements Source {
 
         if (mangaLastChapterDate.size() > 0 && mangaLlastChapterName.size() > 0) {
           for (Element image : images) {
-            String title = mangaName.text();
+            String title = mangaName.text().replaceAll("\\[|\\]|\\.|\\#|\\$", "");
 
             logger.info("Name - " + title);
             logger.info("Cover URL - " + image.attr("src"));
@@ -132,7 +132,7 @@ public class Mangafox implements Source {
 
             if (title != null && title.length() > 0) {
               Manga manga = new Manga();
-              manga.setTitle(mangaName.text());
+              manga.setTitle(title);
               manga.setThumbnailUrl(image.attr("src"));
               manga.setLastUpdate(System.currentTimeMillis());
               list.add(manga);

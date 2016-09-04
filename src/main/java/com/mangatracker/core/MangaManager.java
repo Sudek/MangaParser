@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MangaManager implements ValueEventListener, SourceCallback {
     private Logger logger = LoggerFactory.getLogger(MangaManager.class);
-    public static final String PROXY = "212.227.159.39";
+    public static final String PROXY = "104.236.139.208";
     public static final int PROXY_PORT = 80;
 
     private static MangaManager instance;
