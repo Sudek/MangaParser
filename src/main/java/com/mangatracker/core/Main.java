@@ -1,9 +1,12 @@
 package com.mangatracker.core;
 
-import com.qmetric.spark.authentication.*;
-import org.slf4j.*;
+import com.qmetric.spark.authentication.AuthenticationDetails;
+import com.qmetric.spark.authentication.BasicAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
+
 import static spark.Spark.*;
 
 public class Main {
@@ -35,15 +38,4 @@ public class Main {
     return new MangaListResponse(mangaManager.getMangaList());
   }
 
-  //
-  //    public static void main(String[] args) {
-  //        Mangafox mf = new Mangafox();
-  //        ArrayList<String> mangafoxNameURL = new ArrayList<String>();
-  //        try {
-  //            mangafoxNameURL = mf.parse();
-  //        } catch (IOException e) {
-  //            e.printStackTrace();
-  //        }
-  //        mf.parseURL(mangafoxNameURL);
-  //    }
 }

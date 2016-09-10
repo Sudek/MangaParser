@@ -1,11 +1,16 @@
 package com.mangatracker.core.sources;
 
 import com.mangatracker.core.models.Manga;
-import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.*;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,7 +79,7 @@ public class Mangafox implements Source {
    * Heavy
    * @param urlList List of manga titles
    */
-  private List<Manga> parseURLs(List<String> urlList) {
+  private List<Manga> parseURLs(List<String> urlList) throws IOException {
     logger.debug("parseURLs");
 
     List<Manga> list = new ArrayList<>();
@@ -83,7 +88,12 @@ public class Mangafox implements Source {
 
     for (String anUrlList : urlList) {
       try {
-        mangaDoc = Jsoup.connect(anUrlList).get();
+        Request request = new Request.Builder()
+                .url(anUrlList)
+                .build();
+        Response response = client.newCall(request).execute();
+        mangaDoc = Jsoup.parse(response.body().string(), anUrlList);
+//        mangaDoc = Jsoup.connect(anUrlList).get();
       } catch (IOException e) {
         e.printStackTrace();
       }

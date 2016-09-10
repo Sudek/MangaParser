@@ -14,3 +14,4 @@ hs_err_pid*
 /MangaParser.iml
 /core.iml
 /src/main/resources/keys/
+target/
