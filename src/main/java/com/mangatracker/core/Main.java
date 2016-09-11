@@ -10,32 +10,41 @@ import spark.template.mustache.MustacheTemplateEngine;
 import static spark.Spark.*;
 
 public class Main {
-  private static Logger logger = LoggerFactory.getLogger(Main.class);
-  private static MangaManager mangaManager;
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private static MangaManager mangaManager;
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    mangaManager = MangaManager.getInstance();
+        mangaManager = MangaManager.getInstance();
 
-    before(new BasicAuthenticationFilter("/odmin/*", new AuthenticationDetails("foo", "bar")));
-    //        Map<String, String> params = new HashMap<>();
-    //        params.put("items", "asd");
+        before(new BasicAuthenticationFilter("/odmin/*", new AuthenticationDetails("foo", "bar")));
+        //        Map<String, String> params = new HashMap<>();
+        //        params.put("items", "asd");
 
-    get("/odmin/dashboard", (request, response) -> new ModelAndView(buildMangaList(), "dashboard.mustache"),
-        new MustacheTemplateEngine());
+        get("/odmin/dashboard", (request, response) -> new ModelAndView(buildMangaList(), "dashboard.mustache"),
+                new MustacheTemplateEngine());
 
-//    mangaManager.getLatest("mangafox");
+//        mangaManager.getLatest("mangafox");
 
-    post("/odmin/fetch/:source", ((request, response) -> {
-      logger.debug("fetch " + request.queryParams("source"));
-      mangaManager.getLatest(request.queryParams("source"));
-      response.status(200);
-      return "ok";
-    }));
-  }
+        post("/odmin/fetch/:source", ((request, response) -> {
+            String source = request.queryParams("source");
+            String ipAddress = request.queryParams("ip");
+            String port = request.queryParams("port");
+            String startTitle = request.queryParams("startTitle");
+            String endTitle = request.queryParams("endTitle");
+            logger.info("source - " + source);
+            logger.info("ipAddress - " + ipAddress);
+            logger.info("port - " + port);
+            logger.info("startTitle - " + startTitle);
+            logger.info("endTitle - " + endTitle);
+            mangaManager.getLatest(source);
+            response.status(200);
+            return "ok";
+        }));
+    }
 
-  private static MangaListResponse buildMangaList() {
-    return new MangaListResponse(mangaManager.getMangaList());
-  }
+    private static MangaListResponse buildMangaList() {
+        return new MangaListResponse(mangaManager.getMangaList());
+    }
 
 }

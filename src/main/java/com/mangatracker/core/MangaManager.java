@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MangaManager implements ValueEventListener, SourceCallback {
     private Logger logger = LoggerFactory.getLogger(MangaManager.class);
-    public static final String PROXY = "118.174.86.234";
-    public static final int PROXY_PORT = 8080;
+    public static final String PROXY = "40.85.180.58";
+    public static final int PROXY_PORT = 3128;
 
     private static MangaManager instance;
     private final OkHttpClient client;
@@ -111,7 +111,6 @@ public class MangaManager implements ValueEventListener, SourceCallback {
 
     private void updateMangaDb(List<Manga> list) {
         for (Manga m : list) {
-            // TODO normalize title
             manga.child(m.getTitle()).setValue(m);
         }
     }

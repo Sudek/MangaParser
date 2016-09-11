@@ -3,113 +3,114 @@ package com.mangatracker.core.models;
 
 public class Manga {
 
-  private String source;
-  private String url;
-  private String uid;
-  private String artist;
-  private String author;
-  private String description;
-  private String genre;
+    private String source;
+    private String url;
+    private String uid;
+    private String artist;
+    private String author;
+    private String description;
+    private String genre;
 
-  private String title;
-  /**
-   * If flag is up do fetch update
-   */
-  private boolean completed;
-  private String thumbnailUrl;
+    private String title;
+    /**
+     * If flag is up do fetch update
+     */
+    private boolean completed;
+    private String thumbnailUrl;
 
-  /**
-   * Last time server checked for update
-   */
-  private long lastUpdate;
 
-  public Manga() {}
+    /**
+     * Last time server checked for update
+     */
+    private long lastUpdate;
 
-  public String getUid() {
-    return uid;
-  }
+    public Manga() {}
 
-  public void setUid(String uid) {
-    this.uid = uid;
-  }
+    public String getUid() {
+        return uid;
+    }
 
-  public String getSource() {
-    return source;
-  }
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
-  public void setSource(String source) {
-    this.source = source;
-  }
+    public String getSource() {
+        return source;
+    }
 
-  public String getUrl() {
-    return url;
-  }
+    public void setSource(String source) {
+        this.source = source;
+    }
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
+    public String getUrl() {
+        return url;
+    }
 
-  public String getArtist() {
-    return artist;
-  }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-  public void setArtist(String artist) {
-    this.artist = artist;
-  }
+    public String getArtist() {
+        return artist;
+    }
 
-  public String getAuthor() {
-    return author;
-  }
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
-  public void setAuthor(String author) {
-    this.author = author;
-  }
+    public String getAuthor() {
+        return author;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public String getGenre() {
-    return genre;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public void setGenre(String genre) {
-    this.genre = genre;
-  }
+    public String getGenre() {
+        return genre;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public boolean isCompleted() {
-    return completed;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public void setCompleted(boolean completed) {
-    this.completed = completed;
-  }
+    public boolean isCompleted() {
+        return completed;
+    }
 
-  public String getThumbnailUrl() {
-    return thumbnailUrl;
-  }
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 
-  public void setThumbnailUrl(String thumbnailUrl) {
-    this.thumbnailUrl = thumbnailUrl;
-  }
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
 
-  public long getLastUpdate() {
-    return lastUpdate;
-  }
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 
-  public void setLastUpdate(long lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
+    public long getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(long lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 }
