@@ -19,12 +19,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MangaManager implements ValueEventListener, SourceCallback {
     private Logger logger = LoggerFactory.getLogger(MangaManager.class);
-    public static final String PROXY = "40.85.180.58";
-    public static final int PROXY_PORT = 3128;
+    private static final String PROXY = "40.85.180.58";
+    private static final int PROXY_PORT = 3128;
 
     private static MangaManager instance;
-    private final OkHttpClient client;
-    private final FirebaseDatabase firebaseDatabase;
+    private OkHttpClient client;
     private final DatabaseReference manga;
 
     /**
@@ -55,16 +54,7 @@ public class MangaManager implements ValueEventListener, SourceCallback {
                 .build();
         FirebaseApp.initializeApp(options);
 
-        // set proxy
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY, PROXY_PORT));
-        //Cache cache = new Cache(new File(args[0]), cacheByteCount);
-        client = new OkHttpClient.Builder()
-                .proxy(proxy)
-                //.cache(cache)
-                .connectTimeout(3, TimeUnit.MINUTES)
-                .build();
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         manga = firebaseDatabase.getReference("manga");
     }
 
@@ -96,14 +86,23 @@ public class MangaManager implements ValueEventListener, SourceCallback {
         return client;
     }
 
-    public void getLatest(String source) {
+    public void getLatest(String source, String ipAddress, String port, int startTitle, int endTitle) {
+        // set proxy
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ipAddress, Integer.parseInt(port)));
+        //Cache cache = new Cache(new File(args[0]), cacheByteCount);
+        client = new OkHttpClient.Builder()
+                .proxy(proxy)
+                //.cache(cache)
+                .connectTimeout(3, TimeUnit.MINUTES)
+                .build();
+
         switch (source) {
             case Mangafox.SOURCE_NAME:
 
                 Mangafox mf = new Mangafox();
                 mf.setCallback(this);
                 mf.setOkHttpClient(client);
-                mf.pullLatestUpdatesFromNetwork();
+                mf.pullLatestUpdatesFromNetwork(startTitle, endTitle);
 
                 break;
         }

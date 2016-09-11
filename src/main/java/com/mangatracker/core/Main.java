@@ -33,11 +33,11 @@ public class Main {
             String startTitle = request.queryParams("startTitle");
             String endTitle = request.queryParams("endTitle");
             logger.info("source - " + source);
-            logger.info("ipAddress - " + ipAddress);
+            logger.info("ip - " + ipAddress);
             logger.info("port - " + port);
             logger.info("startTitle - " + startTitle);
             logger.info("endTitle - " + endTitle);
-            mangaManager.getLatest(source);
+            mangaManager.getLatest(source, ipAddress, port, Integer.parseInt(startTitle), Integer.parseInt(endTitle));
             response.status(200);
             return "ok";
         }));

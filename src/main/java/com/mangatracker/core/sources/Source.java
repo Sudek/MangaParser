@@ -4,7 +4,7 @@ package com.mangatracker.core.sources;
 public interface Source {
     String getSourceName();
     String getBaseUrl();
-    void pullLatestUpdatesFromNetwork();
+    void pullLatestUpdatesFromNetwork(int startTitle, int endTitle);
 
 //
 //    Observable<String> getInitialUpdateUrl();

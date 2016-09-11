@@ -30,7 +30,7 @@ public class Mangafox implements Source {
      * @throws IOException
      * 10.09.2016 Total titles - 17392
      */
-    private List<String> parseAllTitles() throws IOException {
+    private List<String> parseAllTitles(int startTitle, int endTitle) throws IOException {
         logger.debug("parseAllTitles");
         if (client != null) {
             Request request = new Request.Builder()
@@ -70,7 +70,7 @@ public class Mangafox implements Source {
                     if (counter == 10) break;
                 }
             }
-            return mangafoxURLs;
+            return mangafoxURLs.subList(startTitle, endTitle);
         }
         return null;
     }
@@ -166,9 +166,9 @@ public class Mangafox implements Source {
     }
 
     @Override
-    public void pullLatestUpdatesFromNetwork() {
+    public void pullLatestUpdatesFromNetwork(int startTitle, int endTitle) {
         try {
-            callback.loaded(parseURLs(parseAllTitles()), SOURCE_NAME);
+            callback.loaded(parseURLs(parseAllTitles(startTitle, endTitle)), SOURCE_NAME);
         } catch (IOException e) {
             e.printStackTrace();
         }
