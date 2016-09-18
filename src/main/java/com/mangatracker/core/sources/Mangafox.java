@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Mangafox implements Source {
     public static final String SOURCE_NAME = "mangafox";
@@ -26,7 +27,7 @@ public class Mangafox implements Source {
 
     /**
      * Fetch all available titles in the current source and convert it to Strings
-     * @return List of titles
+     * @return sublist of titles
      * @throws IOException
      * 10.09.2016 Total titles - 17392
      */
@@ -79,6 +80,7 @@ public class Mangafox implements Source {
      * Parse list of manga urls.
      * Heavy
      * @param urlList List of manga titles
+     * @throws IOException
      */
     private List<Manga> parseURLs(List<String> urlList) throws IOException {
         logger.debug("parseURLs");
@@ -129,22 +131,28 @@ public class Mangafox implements Source {
 
                 if (mangaLastChapterDate.size() > 0 && mangaLlastChapterName.size() > 0) {
                     for (Element image : images) {
+                        boolean mangaStatus = false;
                         String title = mangaName.text().replaceAll("\\[|\\]|\\.|\\#|\\$", "");
+                        String imageAddress = image.attr("src");
+                        if(Objects.equals(status.text(), "Completed")) mangaStatus = true;
 
                         logger.info("Name - " + title);
-                        logger.info("Cover URL - " + image.attr("src"));
+                        logger.info("Cover URL - " + imageAddress);
                         logger.info("Release date - " + releaseDate.text());
-                        logger.info("Status - " + status.text());
+                        logger.info("Status - " + mangaStatus);
                         logger.info("Last chapter update - " + lastChapterUpdate.text());
                         logger.info("Last chapter name - " + lastChapterName.text());
                         logger.info("-----------------------------------------------------------------------");
 
-
                         if (title != null && title.length() > 0) {
                             Manga manga = new Manga();
                             manga.setTitle(title);
-                            manga.setThumbnailUrl(image.attr("src"));
+                            manga.setSource("mangafox");
+                            manga.setThumbnailUrl(imageAddress);
                             manga.setLastUpdate(System.currentTimeMillis());
+                            manga.setUrl(anUrlList);
+                            manga.setLastChapterName(lastChapterName.text());
+                            manga.setCompleted(mangaStatus);
                             list.add(manga);
                         }
                     }

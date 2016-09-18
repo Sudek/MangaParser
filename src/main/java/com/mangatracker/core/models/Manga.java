@@ -3,25 +3,24 @@ package com.mangatracker.core.models;
 
 public class Manga {
 
+    private String uid;
+    private String title;
     private String source;
     private String url;
-    private String uid;
-    private String artist;
-    private String author;
     private String description;
-    private String genre;
-
-    private String title;
+    private boolean completed;
+    private String lastChapterName;
+    private String lastChapterUpdate;
     /**
      * If flag is up do fetch update
      */
-    private boolean completed;
-    private String thumbnailUrl;
 
+    private String thumbnailUrl;
 
     /**
      * Last time server checked for update
      */
+
     private long lastUpdate;
 
     public Manga() {}
@@ -50,36 +49,12 @@ public class Manga {
         this.url = url;
     }
 
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getTitle() {
@@ -113,4 +88,21 @@ public class Manga {
     public void setLastUpdate(long lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
+    public String getLastChapterName() {
+        return lastChapterName;
+    }
+
+    public void setLastChapterName(String lastChapterName) {
+        this.lastChapterName = lastChapterName;
+    }
+
+    public String getLastChapterUpdate() {
+        return lastChapterUpdate;
+    }
+
+    public void setLastChapterUpdate(String lastChapterUpdate) {
+        this.lastChapterUpdate = lastChapterUpdate;
+    }
+
 }
