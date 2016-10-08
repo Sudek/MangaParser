@@ -26,7 +26,7 @@ public class Main {
 
 //        mangaManager.getLatest("mangafox", "61.19.254.16", "3128", 0, 3);
 
-        post("/odmin/fetch/:source", ((request, response) -> {
+        post("/odmin/fetch/", ((request, response) -> {
             String source = request.queryParams("source");
             String ipAddress = request.queryParams("ip");
             String port = request.queryParams("port");
