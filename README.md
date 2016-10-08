@@ -2,11 +2,11 @@
 This is the server side android application MangaTracker. MangaParser parse all titels via custom proxy.
 At present we have one POST method and support only one source (mangafox.com). 
 
-Request address is "http://localhost:4567/odmin/fetch/source". Successful request return "ok".
+Request address is "http://localhost:4567/odmin/fetch/". Successful request return "ok".
 
 Example POST request:
 
-"http://localhost:4567/odmin/fetch/mangafox?ip=177.102.239.243&port=8080&startTitle=0&endTitle=50&source=mangafox".
+"http://localhost:4567/odmin/fetch/?source=mangafox?ip=177.102.239.243&port=8080&startTitle=0&endTitle=50".
 
 Where is: 
 
