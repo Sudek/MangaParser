@@ -13,9 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Mangafox implements Source {
     public static final String SOURCE_NAME = "mangafox";
@@ -64,11 +65,11 @@ public class Mangafox implements Source {
                         .select("li")
                         .select("a[href]");
                 // for test purposes parseAllTitles only 10 manga url
-                int counter = 0;
+//                int counter = 0;
                 for (Element link : mangafoxLinks) {
                     mangafoxURLs.add(link.attr("href"));
-                    counter++;
-                    if (counter == 10) break;
+//                    counter++;
+//                    if (counter == 10) break;
                 }
             }
             return mangafoxURLs.subList(startTitle, endTitle);
@@ -79,14 +80,14 @@ public class Mangafox implements Source {
     /**
      * Parse list of manga urls.
      * Heavy
+     * @return list with manga objects
      * @param urlList List of manga titles
-     * @throws IOException
+     * @throws IOException, ParseException
      */
-    private List<Manga> parseURLs(List<String> urlList) throws IOException {
+    private List<Manga> parseURLs(List<String> urlList) throws IOException, ParseException {
         logger.debug("parseURLs");
 
         List<Manga> list = new ArrayList<>();
-
         Document mangaDoc = null;
 
         for (String anUrlList : urlList) {
@@ -131,6 +132,10 @@ public class Mangafox implements Source {
 
                 if (mangaLastChapterDate.size() > 0 && mangaLlastChapterName.size() > 0) {
                     for (Element image : images) {
+                        String update = lastChapterUpdate.text();
+                        DateFormat format = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
+                        Date date = format.parse(update);
+                        long time = date.getTime();
                         boolean mangaStatus = false;
                         String title = mangaName.text().replaceAll("\\[|\\]|\\.|\\#|\\$", "");
                         String imageAddress = image.attr("src");
@@ -140,7 +145,7 @@ public class Mangafox implements Source {
                         logger.info("Cover URL - " + imageAddress);
                         logger.info("Release date - " + releaseDate.text());
                         logger.info("Status - " + mangaStatus);
-                        logger.info("Last chapter update - " + lastChapterUpdate.text());
+                        logger.info("Last chapter update - " + time);
                         logger.info("Last chapter name - " + lastChapterName.text());
                         logger.info("-----------------------------------------------------------------------");
 
@@ -149,7 +154,7 @@ public class Mangafox implements Source {
                             manga.setTitle(title);
                             manga.setSource("mangafox");
                             manga.setThumbnailUrl(imageAddress);
-                            manga.setLastUpdate(System.currentTimeMillis());
+                            manga.setLastUpdate(time);
                             manga.setUrl(anUrlList);
                             manga.setLastChapterName(lastChapterName.text());
                             manga.setCompleted(mangaStatus);
@@ -177,7 +182,7 @@ public class Mangafox implements Source {
     public void pullLatestUpdatesFromNetwork(int startTitle, int endTitle) {
         try {
             callback.loaded(parseURLs(parseAllTitles(startTitle, endTitle)), SOURCE_NAME);
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }

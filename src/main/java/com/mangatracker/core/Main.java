@@ -24,7 +24,7 @@ public class Main {
         get("/odmin/dashboard", (request, response) -> new ModelAndView(buildMangaList(), "dashboard.mustache"),
                 new MustacheTemplateEngine());
 
-//        mangaManager.getLatest("mangafox", "101.79.243.26", "8080", 0, 6);
+//        mangaManager.getLatest("mangafox", "61.19.254.16", "3128", 0, 3);
 
         post("/odmin/fetch/:source", ((request, response) -> {
             String source = request.queryParams("source");
@@ -37,7 +37,7 @@ public class Main {
             logger.info("port - " + port);
             logger.info("startTitle - " + startTitle);
             logger.info("endTitle - " + endTitle);
-            logger.info("-------------------------------------------");
+            logger.info("-----------------------------------------------------------------------");
             mangaManager.getLatest(source, ipAddress, port, Integer.parseInt(startTitle), Integer.parseInt(endTitle));
             response.status(200);
             return "ok";
